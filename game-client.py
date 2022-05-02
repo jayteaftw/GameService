@@ -55,6 +55,7 @@ def streaming_game(size):
             if command == pygame.K_DOWN:    return "DOWN"
             if command == pygame.K_LEFT:    return "LEFT"
             if command == pygame.K_RIGHT:   return "RIGHT"
+            return " "
 
         events_to_send = " "
         for event in pygame.event.get():
@@ -64,7 +65,8 @@ def streaming_game(size):
                 events_to_send = command_conversion(event.key)
                 print(f"You pressed {events_to_send}")
             if event.type == pygame.KEYUP:
-                events_to_send = "!"+command_conversion(event.key)
+                events_to_send = command_conversion(event.key)
+                if events_to_send != " ": events_to_send = "!"+events_to_send
                 print(f"You Released {events_to_send}")
 
                 
@@ -137,6 +139,8 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 
     font = pygame.font.SysFont(None, 20)
-    main_menu(main_clock, size)
+    
+    streaming_game(size)
+    #main_menu(main_clock, size)
     #streaming_game(size)
 
